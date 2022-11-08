@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-interface PostLoginRequestProps {
+export interface PostLoginRequestProps {
   id: string;
   password: string;
 }
 
-interface GetUserRequestProps {
+export interface GetUserRequestProps {
   userId: string;
 }
 
-interface LoginSuccessResponse {
+export interface LoginSuccessResponse {
   data: {
     accessToken: string;
     user: {
@@ -19,7 +19,7 @@ interface LoginSuccessResponse {
   };
 }
 
-interface UserResponse {
+export interface UserResponse {
   data: {
     user: {
       id: string;
@@ -28,9 +28,8 @@ interface UserResponse {
   };
 }
 
-export const postLogin = ({ id, password }: PostLoginRequestProps) => {
-  return axios.post<LoginSuccessResponse, PostLoginRequestProps>('/login', { id, password });
-};
+export const postLogin = ({ id, password }: PostLoginRequestProps) =>
+  axios.post<LoginSuccessResponse>('/login', { id, password });
 
 export const getUser = async ({ userId }: GetUserRequestProps) => {
   const data = await axios.get<UserResponse>(`user/${userId}`);
