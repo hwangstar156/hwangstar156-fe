@@ -4,12 +4,11 @@ import styled, { css } from 'styled-components';
 import useInput from '../hooks/useInput';
 import { validateIdFormat, validatePasswordFormat } from '../utilities/validate';
 import usePostLogin from '../hooks/queries/usePostLogin';
-import { useRouter } from 'next/router';
 import useLogin from '../hooks/useLogin';
 
 const LoginPage: NextPage = () => {
-  const { isLogin, handleCheckLogin } = useLogin();
-  const router = useRouter();
+  //client state
+  const { isLogin, loginSuccess } = useLogin();
   const {
     inputElement: idInputElement,
     handleBlurInput: handleBlurIdInput,
@@ -20,13 +19,12 @@ const LoginPage: NextPage = () => {
     handleBlurInput: handleBlurPasswordInput,
     isValidatedInput: isValidatedPasswordInput,
   } = useInput(validatePasswordFormat);
-
+  // server state
   const { mutate } = usePostLogin({
     onSuccess(data) {
-      localStorage.setItem('accessToken', data.data.data.accessToken);
-      localStorage.setItem('user-id', data.data.data.user.id);
-      handleCheckLogin();
-      router.push('/');
+      const accessToken = data.data.data.accessToken;
+      const userId = data.data.data.user.id;
+      loginSuccess({ accessToken, userId });
     },
   });
 
