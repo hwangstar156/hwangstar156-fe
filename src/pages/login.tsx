@@ -15,10 +15,10 @@ const LoginPage: NextPage = () => {
         </Link>
       </Header>
       <Form>
-        <div>아이디</div>
-        <TextInput type='text' />
-        <div>비밀번호</div>
-        <TextInput type='password' />
+        <label htmlFor='id-input'>아이디</label>
+        <TextInput type='text' id='id-input' />
+        <label htmlFor='password-input'>비밀번호</label>
+        <TextInput type='password' id='password-input' />
         <LoginButton disabled>로그인</LoginButton>
       </Form>
     </>
