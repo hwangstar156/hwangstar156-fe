@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import type { NextPage } from 'next';
-import React from 'react';
 import styled, { css } from 'styled-components';
 import useInput from '../hooks/useInput';
 import { validateIdFormat, validatePasswordFormat } from '../utilities/validate';
+import usePostLogin from '../hooks/queries/usePostLogin';
+import { useRouter } from 'next/router';
+import useLogin from '../hooks/useLogin';
 
 const LoginPage: NextPage = () => {
+  const { isLogin, handleCheckLogin } = useLogin();
+  const router = useRouter();
   const {
     inputElement: idInputElement,
     handleBlurInput: handleBlurIdInput,
@@ -17,6 +21,27 @@ const LoginPage: NextPage = () => {
     isValidatedInput: isValidatedPasswordInput,
   } = useInput(validatePasswordFormat);
 
+  const { mutate } = usePostLogin({
+    onSuccess(data) {
+      localStorage.setItem('accessToken', data.data.data.accessToken);
+      localStorage.setItem('user-id', data.data.data.user.id);
+      handleCheckLogin();
+      router.push('/');
+    },
+  });
+
+  const handleSubmitLoginForm = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!idInputElement.current || !passwordInputElement.current) {
+      return;
+    }
+
+    mutate({
+      id: idInputElement.current.value,
+      password: passwordInputElement.current.value,
+    });
+  };
+
   return (
     <>
       <Header>
@@ -24,10 +49,10 @@ const LoginPage: NextPage = () => {
           <Title>HAUS</Title>
         </Link>
         <Link href='/login'>
-          <p>login</p>
+          <p>{isLogin ? 'logout' : 'login'}</p>
         </Link>
       </Header>
-      <Form>
+      <Form onSubmit={handleSubmitLoginForm}>
         <Label htmlFor='id-input'>아이디</Label>
         <TextInput
           type='text'
@@ -71,7 +96,7 @@ const Title = styled.a`
   font-size: 48px;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 40px;
@@ -116,6 +141,7 @@ const LoginButton = styled.button`
   background-color: #222;
   color: #fff;
 
+  cursor: pointer;
   &:disabled {
     background-color: #e2e2ea;
   }
