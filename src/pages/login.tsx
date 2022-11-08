@@ -1,15 +1,13 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
 import styled, { css } from 'styled-components';
 import useInput from '../hooks/useInput';
 import { validateIdFormat, validatePasswordFormat } from '../utilities/validate';
 import usePostLogin from '../hooks/queries/usePostLogin';
 import useLogin from '../hooks/useLogin';
-import { useState } from 'react';
 
 const LoginPage: NextPage = () => {
   //client state
-  const { isLogin, loginSuccess, logout, userName } = useLogin();
+  const { loginSuccess } = useLogin();
   const {
     inputElement: idInputElement,
     handleBlurInput: handleBlurIdInput,

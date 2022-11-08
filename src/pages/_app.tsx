@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import setupMSW from '../api/setup';
 import Header from '../components/Layout/Header';
+import GlobalProvier from '../provider/GlobalProvider';
 import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
@@ -17,8 +18,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Background />
       <Content>
         <QueryClientProvider client={queryClient}>
-          <Header />
-          <Component {...pageProps} />
+          <GlobalProvier>
+            <Header />
+            <Component {...pageProps} />
+          </GlobalProvier>
         </QueryClientProvider>
       </Content>
     </>
