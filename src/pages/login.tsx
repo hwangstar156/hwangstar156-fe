@@ -50,7 +50,9 @@ const LoginPage: NextPage = () => {
         <ValidatedMessage isInValidInput={!isValidatedPasswordInput}>
           올바른 비밀번호 형식으로 입력해주세요.
         </ValidatedMessage>
-        <LoginButton disabled>로그인</LoginButton>
+        <LoginButton disabled={!isValidatedIdInput || !isValidatedPasswordInput}>
+          로그인
+        </LoginButton>
       </Form>
     </>
   );
