@@ -11,10 +11,10 @@ const Header = () => {
         <Title>HAUS</Title>
       </Link>
       {isLogin ? (
-        <>
+        <div>
           <div>{userName}</div>
-          <div onClick={logout}>logout</div>
-        </>
+          <LogoutButton onClick={logout}>logout</LogoutButton>
+        </div>
       ) : (
         <Link href='/login'>login</Link>
       )}
@@ -33,4 +33,10 @@ const Container = styled.div`
 
 const Title = styled.a`
   font-size: 48px;
+`;
+
+const LogoutButton = styled.button`
+  border: none;
+  background: transparent;
+  cursor: pointer;
 `;
