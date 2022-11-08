@@ -14,14 +14,6 @@ const PaginationPage: NextPage = () => {
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Container>
         <ProductList products={products.slice(0, 10)} />
         <Pagination />

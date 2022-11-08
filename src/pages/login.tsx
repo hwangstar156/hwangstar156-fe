@@ -5,10 +5,11 @@ import useInput from '../hooks/useInput';
 import { validateIdFormat, validatePasswordFormat } from '../utilities/validate';
 import usePostLogin from '../hooks/queries/usePostLogin';
 import useLogin from '../hooks/useLogin';
+import { useState } from 'react';
 
 const LoginPage: NextPage = () => {
   //client state
-  const { isLogin, loginSuccess } = useLogin();
+  const { isLogin, loginSuccess, logout, userName } = useLogin();
   const {
     inputElement: idInputElement,
     handleBlurInput: handleBlurIdInput,
@@ -23,8 +24,9 @@ const LoginPage: NextPage = () => {
   const { mutate } = usePostLogin({
     onSuccess(data) {
       const accessToken = data.data.data.accessToken;
-      const userId = data.data.data.user.id;
-      loginSuccess({ accessToken, userId });
+      const userId = data.data.data.user.ID;
+      const userName = data.data.data.user.NAME;
+      loginSuccess({ accessToken, userId, userName });
     },
   });
 
@@ -42,14 +44,6 @@ const LoginPage: NextPage = () => {
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>{isLogin ? 'logout' : 'login'}</p>
-        </Link>
-      </Header>
       <Form onSubmit={handleSubmitLoginForm}>
         <Label htmlFor='id-input'>아이디</Label>
         <TextInput
@@ -82,17 +76,6 @@ const LoginPage: NextPage = () => {
 };
 
 export default LoginPage;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
 
 const Form = styled.form`
   display: flex;

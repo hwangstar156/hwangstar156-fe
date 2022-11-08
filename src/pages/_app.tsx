@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import styled from 'styled-components';
 
 import setupMSW from '../api/setup';
+import Header from '../components/Layout/Header';
 import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Background />
       <Content>
         <QueryClientProvider client={queryClient}>
+          <Header />
           <Component {...pageProps} />
         </QueryClientProvider>
       </Content>

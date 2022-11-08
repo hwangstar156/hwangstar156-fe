@@ -6,14 +6,6 @@ import styled from 'styled-components';
 const HomePage: NextPage = () => {
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Container>
         <Link href='/pagination?page=1'>
           <StyledLink>pagination</StyledLink>
