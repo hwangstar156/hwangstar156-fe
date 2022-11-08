@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import styled from 'styled-components';
 
 import setupMSW from '../api/setup';
@@ -6,13 +7,17 @@ import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />
       <Background />
       <Content>
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </Content>
     </>
   );
