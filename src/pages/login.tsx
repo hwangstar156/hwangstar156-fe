@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const LoginPage: NextPage = () => {
   return (
@@ -15,10 +15,10 @@ const LoginPage: NextPage = () => {
         </Link>
       </Header>
       <Form>
-        <label htmlFor='id-input'>아이디</label>
-        <TextInput type='text' id='id-input' />
-        <label htmlFor='password-input'>비밀번호</label>
-        <TextInput type='password' id='password-input' />
+        <Label htmlFor='id-input'>아이디</Label>
+        <TextInput type='text' id='id-input' inActive={true} />
+        <Label htmlFor='password-input'>비밀번호</Label>
+        <TextInput type='password' id='password-input' inActive={false} />
         <LoginButton disabled>로그인</LoginButton>
       </Form>
     </>
@@ -45,8 +45,24 @@ const Form = styled.div`
   padding: 0 20px 40px;
 `;
 
-const TextInput = styled.input`
+const Label = styled.label`
+  color: #6c6c7d;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 15px;
+`;
+
+const TextInput = styled.input<{ inActive: boolean }>`
   border: 1px solid #000;
+  margin-top: 8px;
+  padding: 16px;
+  border-radius: 12px;
+  border-color: transparent;
+
+  ${({ inActive }) =>
+    css`
+      background: ${inActive ? '#f7f7fa' : '#FDEDEE'};
+    `}
 `;
 
 const LoginButton = styled.button`
