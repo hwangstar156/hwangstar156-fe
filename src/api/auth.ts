@@ -13,8 +13,8 @@ export interface LoginSuccessResponse {
   data: {
     accessToken: string;
     user: {
-      id: string;
-      name: string;
+      ID: string;
+      NAME: string;
     };
   };
 }
@@ -22,8 +22,8 @@ export interface LoginSuccessResponse {
 export interface UserResponse {
   data: {
     user: {
-      id: string;
-      name: string;
+      ID: string;
+      NAME: string;
     };
   };
 }
