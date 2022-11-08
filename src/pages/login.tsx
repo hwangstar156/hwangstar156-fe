@@ -2,8 +2,21 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import useInput from '../hooks/useInput';
+import { validateIdFormat, validatePasswordFormat } from '../utilities/validate';
 
 const LoginPage: NextPage = () => {
+  const {
+    inputElement: idInputElement,
+    handleBlurInput: handleBlurIdInput,
+    isValidatedInput: isValidatedIdInput,
+  } = useInput(validateIdFormat);
+  const {
+    inputElement: passwordInputElement,
+    handleBlurInput: handleBlurPasswordInput,
+    isValidatedInput: isValidatedPasswordInput,
+  } = useInput(validatePasswordFormat);
+
   return (
     <>
       <Header>
@@ -16,9 +29,27 @@ const LoginPage: NextPage = () => {
       </Header>
       <Form>
         <Label htmlFor='id-input'>아이디</Label>
-        <TextInput type='text' id='id-input' inActive={true} />
+        <TextInput
+          type='text'
+          id='id-input'
+          inActive={isValidatedIdInput}
+          ref={idInputElement}
+          onBlur={handleBlurIdInput}
+        />
+        <ValidatedMessage isInValidInput={!isValidatedIdInput}>
+          올바른 아이디 형식으로 입력해주세요.
+        </ValidatedMessage>
         <Label htmlFor='password-input'>비밀번호</Label>
-        <TextInput type='password' id='password-input' inActive={false} />
+        <TextInput
+          type='password'
+          id='password-input'
+          ref={passwordInputElement}
+          onBlur={handleBlurPasswordInput}
+          inActive={isValidatedPasswordInput}
+        />
+        <ValidatedMessage isInValidInput={!isValidatedPasswordInput}>
+          올바른 비밀번호 형식으로 입력해주세요.
+        </ValidatedMessage>
         <LoginButton disabled>로그인</LoginButton>
       </Form>
     </>
@@ -63,6 +94,17 @@ const TextInput = styled.input<{ inActive: boolean }>`
     css`
       background: ${inActive ? '#f7f7fa' : '#FDEDEE'};
     `}
+`;
+
+const ValidatedMessage = styled.div<{ isInValidInput: boolean }>`
+  color: #ed4e5c;
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 8px;
+
+  ${({ isInValidInput }) => css`
+    opacity: ${isInValidInput ? 1 : 0};
+  `}
 `;
 
 const LoginButton = styled.button`
