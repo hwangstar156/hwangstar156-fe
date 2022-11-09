@@ -20,17 +20,6 @@ const HomePage: NextPage = () => {
 
 export default HomePage;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
