@@ -5,6 +5,7 @@ import { validateIdFormat, validatePasswordFormat } from '../utilities/validate'
 import usePostLogin from '../hooks/queries/usePostLogin';
 import useLogin from '../hooks/useLogin';
 import withNoAuth from '../components/helper/withNoAuth';
+import Input from '../components/common/Input/Input';
 
 const LoginPage: NextPage = () => {
   //client state
@@ -43,31 +44,24 @@ const LoginPage: NextPage = () => {
 
   return (
     <Form onSubmit={handleSubmitLoginForm}>
-      <Label htmlFor='id-input'>아이디</Label>
-      <TextInput
-        type='text'
+      <Input
         id='id-input'
+        type='text'
         inActive={isValidatedIdInput}
+        labelText='아이디'
         ref={idInputElement}
         onBlur={handleBlurIdInput}
+        cyId='cy-id-validated-message'
       />
-      <ValidatedMessage isInValidInput={!isValidatedIdInput} data-cy='cy-id-validated-message'>
-        올바른 아이디 형식으로 입력해주세요.
-      </ValidatedMessage>
-      <Label htmlFor='password-input'>비밀번호</Label>
-      <TextInput
-        type='password'
+      <Input
         id='password-input'
+        type='password'
+        inActive={isValidatedPasswordInput}
+        labelText='비밀번호'
         ref={passwordInputElement}
         onBlur={handleBlurPasswordInput}
-        inActive={isValidatedPasswordInput}
+        cyId='cy-password-validated-message'
       />
-      <ValidatedMessage
-        isInValidInput={!isValidatedPasswordInput}
-        data-cy='cy-password-validated-message'
-      >
-        올바른 비밀번호 형식으로 입력해주세요.
-      </ValidatedMessage>
       <LoginButton
         disabled={!isValidatedIdInput || !isValidatedPasswordInput}
         data-cy='cy-login-button'
@@ -85,37 +79,6 @@ const Form = styled.form`
   flex-direction: column;
   margin-top: 40px;
   padding: 0 20px 40px;
-`;
-
-const Label = styled.label`
-  color: #6c6c7d;
-  font-size: 13px;
-  font-weight: 700;
-  margin-top: 15px;
-`;
-
-const TextInput = styled.input<{ inActive: boolean }>`
-  border: 1px solid #000;
-  margin-top: 8px;
-  padding: 16px;
-  border-radius: 12px;
-  border-color: transparent;
-
-  ${({ inActive }) =>
-    css`
-      background: ${inActive ? '#f7f7fa' : '#FDEDEE'};
-    `}
-`;
-
-const ValidatedMessage = styled.div<{ isInValidInput: boolean }>`
-  color: #ed4e5c;
-  font-weight: 400;
-  font-size: 13px;
-  margin-top: 8px;
-
-  ${({ isInValidInput }) => css`
-    opacity: ${isInValidInput ? 1 : 0};
-  `}
 `;
 
 const LoginButton = styled.button`
