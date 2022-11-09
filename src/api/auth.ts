@@ -32,7 +32,7 @@ export const postLogin = ({ id, password }: PostLoginRequestProps) =>
   axios.post<LoginSuccessResponse>('/login', { id, password });
 
 export const getUser = async ({ userId }: GetUserRequestProps) => {
-  const data = await axios.get<UserResponse>(`user/${userId}`);
+  const data = await axios.get<UserResponse>(`users/${userId}`);
 
-  return data.data.data;
+  return data.data;
 };
