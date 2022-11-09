@@ -69,7 +69,10 @@ const LoginPage: NextPage = () => {
         >
           올바른 비밀번호 형식으로 입력해주세요.
         </ValidatedMessage>
-        <LoginButton disabled={!isValidatedIdInput || !isValidatedPasswordInput}>
+        <LoginButton
+          disabled={!isValidatedIdInput || !isValidatedPasswordInput}
+          data-cy='cy-login-button'
+        >
           로그인
         </LoginButton>
       </Form>
