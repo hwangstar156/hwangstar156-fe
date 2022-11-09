@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import { useRouter } from 'next/router';
 
-const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+interface PaginationProps {
+  currentPage: string | string[] | undefined;
+}
+
+const Pagination = ({ currentPage }: PaginationProps) => {
+  const router = useRouter();
 
   const handleClickPageButton = (page: number) => {
-    setCurrentPage(page);
+    router.push({ pathname: '/pagination', query: { page } });
   };
 
   return (
@@ -18,8 +23,8 @@ const Pagination = () => {
         {[1, 2, 3, 4, 5].map((page) => (
           <Page
             key={page}
-            selected={page === currentPage}
-            disabled={page === currentPage}
+            selected={page === Number(currentPage)}
+            disabled={page === Number(currentPage)}
             onClick={() => handleClickPageButton(page)}
           >
             {page}
