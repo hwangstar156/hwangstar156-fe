@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { HOME_URL } from '../constants/url';
 
 export interface PostLoginRequestProps {
   id: string;
@@ -29,10 +30,10 @@ export interface UserResponse {
 }
 
 export const postLogin = ({ id, password }: PostLoginRequestProps) =>
-  axios.post<LoginSuccessResponse>('/login', { id, password });
+  axios.post<LoginSuccessResponse>(`${HOME_URL}/login`, { id, password });
 
 export const getUser = async ({ userId }: GetUserRequestProps) => {
-  const data = await axios.get<UserResponse>(`users/${userId}`);
+  const data = await axios.get<UserResponse>(`${HOME_URL}/users/${userId}`);
 
   return data.data;
 };

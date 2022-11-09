@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { HOME_URL } from '../constants/url';
 import { Product } from '../types/product';
 
 export interface GetProductsRequestProps {
@@ -23,13 +24,13 @@ export interface GetDetailProductResponse {
 }
 
 export const getProducts = async ({ page }: GetProductsRequestProps) => {
-  const data = await axios.get<GetProductsResponse>(`/products?page=${page}&size=10`);
+  const data = await axios.get<GetProductsResponse>(`${HOME_URL}/products?page=${page}&size=10`);
 
   return data.data;
 };
 
 export const getDetailProduct = async ({ productId }: GetDetailProductRequestProps) => {
-  const data = await axios.get<GetDetailProductResponse>(`/products/${productId}`);
+  const data = await axios.get<GetDetailProductResponse>(`${HOME_URL}/products/${productId}`);
 
   return data.data;
 };
