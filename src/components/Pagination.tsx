@@ -6,10 +6,19 @@ import useGetProducts from '../hooks/queries/useGetProducts';
 import { ProductsContext } from '../provider/ProductsProvider';
 
 const Pagination = () => {
-  const { pageArray, setPageLength, currentPage, isReady, handleClickPageButton, setPageIndex } =
-    usePagination();
+  //client state
+  const {
+    pageArray,
+    setPageLength,
+    currentPage,
+    isReady,
+    handleClickPageButton,
+    isFirstPageIndex,
+    isLastPageIndex,
+    handleClickePageMoveArrowButton,
+  } = usePagination();
   const { setProducts } = useContext(ProductsContext);
-
+  //server state
   useGetProducts(currentPage, isReady, {
     onSuccess(data) {
       setPageLength(Math.ceil(data.data.totalCount / 10));
@@ -25,7 +34,7 @@ const Pagination = () => {
 
   return (
     <Container>
-      <Button disabled>
+      <Button disabled={isFirstPageIndex} onClick={() => handleClickePageMoveArrowButton(false)}>
         <VscChevronLeft />
       </Button>
       <PageWrapper>
@@ -40,7 +49,7 @@ const Pagination = () => {
           </Page>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+      <Button disabled={isLastPageIndex} onClick={() => handleClickePageMoveArrowButton(true)}>
         <VscChevronRight />
       </Button>
     </Container>
@@ -60,6 +69,8 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
+
   &:disabled {
     color: #e2e2ea;
     cursor: default;
