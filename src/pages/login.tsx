@@ -10,16 +10,8 @@ import Input from '../components/common/Input/Input';
 const LoginPage: NextPage = () => {
   //client state
   const { loginSuccess } = useLogin();
-  const {
-    inputElement: idInputElement,
-    handleBlurInput: handleBlurIdInput,
-    isValidatedInput: isValidatedIdInput,
-  } = useInput(validateIdFormat);
-  const {
-    inputElement: passwordInputElement,
-    handleBlurInput: handleBlurPasswordInput,
-    isValidatedInput: isValidatedPasswordInput,
-  } = useInput(validatePasswordFormat);
+  const idInputInfo = useInput(validateIdFormat);
+  const passwordInputInfo = useInput(validatePasswordFormat);
   // server state
   const { mutate } = usePostLogin({
     onSuccess(data) {
@@ -33,13 +25,13 @@ const LoginPage: NextPage = () => {
 
   const handleSubmitLoginForm = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!idInputElement.current || !passwordInputElement.current) {
+    if (!idInputInfo.ref.current || !passwordInputInfo.ref.current) {
       return;
     }
 
     mutate({
-      id: idInputElement.current.value,
-      password: passwordInputElement.current.value,
+      id: idInputInfo.ref.current.value,
+      password: passwordInputInfo.ref.current.value,
     });
   };
 
@@ -48,23 +40,19 @@ const LoginPage: NextPage = () => {
       <Input
         id='id-input'
         type='text'
-        inActive={isValidatedIdInput}
         labelText='아이디'
-        ref={idInputElement}
-        onBlur={handleBlurIdInput}
         cyId='cy-id-validated-message'
+        {...idInputInfo}
       />
       <Input
         id='password-input'
         type='password'
-        inActive={isValidatedPasswordInput}
         labelText='비밀번호'
-        ref={passwordInputElement}
-        onBlur={handleBlurPasswordInput}
         cyId='cy-password-validated-message'
+        {...passwordInputInfo}
       />
       <LoginButton
-        disabled={!isValidatedIdInput || !isValidatedPasswordInput}
+        disabled={!idInputInfo.inActive || !passwordInputInfo.inActive}
         data-cy='cy-login-button'
       >
         로그인

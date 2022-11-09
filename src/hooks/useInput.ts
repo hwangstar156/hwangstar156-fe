@@ -10,7 +10,7 @@ const useInput = (validateFunc: useInputType) => {
     setIsValidatedInput(validateFunc(event.target.value));
   };
 
-  return { inputElement, handleBlurInput, isValidatedInput };
+  return { ref: inputElement, onBlur: handleBlurInput, inActive: isValidatedInput };
 };
 
 export default useInput;
