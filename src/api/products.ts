@@ -1,11 +1,5 @@
 import axios from 'axios';
-
-export interface Product {
-  id: string;
-  name: string;
-  thumbnail: string;
-  price: number;
-}
+import { Product } from '../types/product';
 
 export interface GetProductsRequestProps {
   page: string;
