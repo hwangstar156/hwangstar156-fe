@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
 const Pagination = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleClickPageButton = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <Container>
       <Button disabled>
@@ -10,7 +16,12 @@ const Pagination = () => {
       </Button>
       <PageWrapper>
         {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
+          <Page
+            key={page}
+            selected={page === currentPage}
+            disabled={page === currentPage}
+            onClick={() => handleClickPageButton(page)}
+          >
             {page}
           </Page>
         ))}
@@ -55,6 +66,7 @@ const Page = styled.button<PageType>`
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
   font-size: 20px;
+  cursor: pointer;
 
   & + & {
     margin-left: 4px;
