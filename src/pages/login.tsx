@@ -42,41 +42,39 @@ const LoginPage: NextPage = () => {
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmitLoginForm}>
-        <Label htmlFor='id-input'>아이디</Label>
-        <TextInput
-          type='text'
-          id='id-input'
-          inActive={isValidatedIdInput}
-          ref={idInputElement}
-          onBlur={handleBlurIdInput}
-        />
-        <ValidatedMessage isInValidInput={!isValidatedIdInput} data-cy='cy-id-validated-message'>
-          올바른 아이디 형식으로 입력해주세요.
-        </ValidatedMessage>
-        <Label htmlFor='password-input'>비밀번호</Label>
-        <TextInput
-          type='password'
-          id='password-input'
-          ref={passwordInputElement}
-          onBlur={handleBlurPasswordInput}
-          inActive={isValidatedPasswordInput}
-        />
-        <ValidatedMessage
-          isInValidInput={!isValidatedPasswordInput}
-          data-cy='cy-password-validated-message'
-        >
-          올바른 비밀번호 형식으로 입력해주세요.
-        </ValidatedMessage>
-        <LoginButton
-          disabled={!isValidatedIdInput || !isValidatedPasswordInput}
-          data-cy='cy-login-button'
-        >
-          로그인
-        </LoginButton>
-      </Form>
-    </>
+    <Form onSubmit={handleSubmitLoginForm}>
+      <Label htmlFor='id-input'>아이디</Label>
+      <TextInput
+        type='text'
+        id='id-input'
+        inActive={isValidatedIdInput}
+        ref={idInputElement}
+        onBlur={handleBlurIdInput}
+      />
+      <ValidatedMessage isInValidInput={!isValidatedIdInput} data-cy='cy-id-validated-message'>
+        올바른 아이디 형식으로 입력해주세요.
+      </ValidatedMessage>
+      <Label htmlFor='password-input'>비밀번호</Label>
+      <TextInput
+        type='password'
+        id='password-input'
+        ref={passwordInputElement}
+        onBlur={handleBlurPasswordInput}
+        inActive={isValidatedPasswordInput}
+      />
+      <ValidatedMessage
+        isInValidInput={!isValidatedPasswordInput}
+        data-cy='cy-password-validated-message'
+      >
+        올바른 비밀번호 형식으로 입력해주세요.
+      </ValidatedMessage>
+      <LoginButton
+        disabled={!isValidatedIdInput || !isValidatedPasswordInput}
+        data-cy='cy-login-button'
+      >
+        로그인
+      </LoginButton>
+    </Form>
   );
 };
 
