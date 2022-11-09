@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import { useRouter } from 'next/router';
+import usePagination from '../hooks/usePagination';
+import useGetProducts from '../hooks/queries/useGetProducts';
+import { ProductsContext } from '../provider/ProductsProvider';
 
-interface PaginationProps {
-  currentPage: string | string[] | undefined;
-}
+const Pagination = () => {
+  const { pageArray, setPageLength, currentPage, isReady, handleClickPageButton, setPageIndex } =
+    usePagination();
+  const { setProducts } = useContext(ProductsContext);
 
-const Pagination = ({ currentPage }: PaginationProps) => {
-  const router = useRouter();
+  useGetProducts(currentPage, isReady, {
+    onSuccess(data) {
+      setPageLength(Math.ceil(data.data.totalCount / 10));
+      setProducts(data.data.products);
+    },
+  });
 
-  const handleClickPageButton = (page: number) => {
-    router.push({ pathname: '/pagination', query: { page } });
-  };
+  useEffect(() => {
+    if (isReady && currentPage === undefined) {
+      throw new Error('찾을 수 없는 페이지입니다.');
+    }
+  }, [currentPage, isReady]);
 
   return (
     <Container>
@@ -20,7 +29,7 @@ const Pagination = ({ currentPage }: PaginationProps) => {
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
+        {pageArray.map((page) => (
           <Page
             key={page}
             selected={page === Number(currentPage)}
