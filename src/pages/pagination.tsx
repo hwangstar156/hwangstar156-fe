@@ -10,12 +10,10 @@ const PaginationPage: NextPage = () => {
   const { products } = useContext(ProductsContext);
 
   return (
-    <>
-      <Container>
-        {products && <ProductList products={products.slice(0, 10)} />}
-        <Pagination />
-      </Container>
-    </>
+    <Container>
+      {products && <ProductList products={products.slice(0, 10)} />}
+      <Pagination />
+    </Container>
   );
 };
 

@@ -21,8 +21,9 @@ const Pagination = () => {
   //server state
   useGetProducts(currentPage, isReady, {
     onSuccess(data) {
-      setPageLength(Math.ceil(data.data.totalCount / 10));
-      setProducts(data.data.products);
+      const { totalCount, products } = data.data;
+      setPageLength(Math.ceil(totalCount / 10));
+      setProducts(products);
     },
   });
 

@@ -12,7 +12,8 @@ const Header = () => {
   //server state
   useGetUser({
     onSuccess(data) {
-      setUserName(data.data.user.NAME);
+      const { NAME } = data.data.user;
+      setUserName(NAME);
     },
   });
 

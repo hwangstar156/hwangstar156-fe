@@ -23,10 +23,11 @@ const LoginPage: NextPage = () => {
   // server state
   const { mutate } = usePostLogin({
     onSuccess(data) {
-      const accessToken = data.data.data.accessToken;
-      const userId = data.data.data.user.ID;
-      const userName = data.data.data.user.NAME;
-      loginSuccess({ accessToken, userId, userName });
+      const {
+        accessToken,
+        user: { ID, NAME },
+      } = data.data.data;
+      loginSuccess({ accessToken, userId: ID, userName: NAME });
     },
   });
 
