@@ -4,6 +4,7 @@ import useInput from '../hooks/useInput';
 import { validateIdFormat, validatePasswordFormat } from '../utilities/validate';
 import usePostLogin from '../hooks/queries/usePostLogin';
 import useLogin from '../hooks/useLogin';
+import withNoAuth from '../components/helper/withNoAuth';
 
 const LoginPage: NextPage = () => {
   //client state
@@ -73,7 +74,7 @@ const LoginPage: NextPage = () => {
   );
 };
 
-export default LoginPage;
+export default withNoAuth(LoginPage);
 
 const Form = styled.form`
   display: flex;
