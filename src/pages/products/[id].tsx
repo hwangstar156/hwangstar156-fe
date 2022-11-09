@@ -10,14 +10,6 @@ const ProductDetailPage: NextPage = () => {
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
       <ProductInfoWrapper>
         <Name>{product.name}</Name>
