@@ -1,10 +1,13 @@
 import LoginProvider from './LoginProvider';
+import ProductsProvider from './ProductsProvider';
 import UserNameProvider from './UserNameProvider';
 
 const GlobalProvier = ({ children }: { children: React.ReactNode }) => {
   return (
     <LoginProvider>
-      <UserNameProvider>{children}</UserNameProvider>
+      <UserNameProvider>
+        <ProductsProvider>{children}</ProductsProvider>
+      </UserNameProvider>
     </LoginProvider>
   );
 };
