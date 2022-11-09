@@ -52,7 +52,7 @@ const LoginPage: NextPage = () => {
           ref={idInputElement}
           onBlur={handleBlurIdInput}
         />
-        <ValidatedMessage isInValidInput={!isValidatedIdInput}>
+        <ValidatedMessage isInValidInput={!isValidatedIdInput} data-cy='cy-id-validated-message'>
           올바른 아이디 형식으로 입력해주세요.
         </ValidatedMessage>
         <Label htmlFor='password-input'>비밀번호</Label>
@@ -63,7 +63,10 @@ const LoginPage: NextPage = () => {
           onBlur={handleBlurPasswordInput}
           inActive={isValidatedPasswordInput}
         />
-        <ValidatedMessage isInValidInput={!isValidatedPasswordInput}>
+        <ValidatedMessage
+          isInValidInput={!isValidatedPasswordInput}
+          data-cy='cy-password-validated-message'
+        >
           올바른 비밀번호 형식으로 입력해주세요.
         </ValidatedMessage>
         <LoginButton disabled={!isValidatedIdInput || !isValidatedPasswordInput}>
