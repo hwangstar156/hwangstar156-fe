@@ -21,6 +21,7 @@ const useGetInfinityProducts = ({
         return page > totalPageLength ? undefined : nextPage;
       },
       refetchOnWindowFocus: false,
+      enabled: page === 1,
     }
   );
 
