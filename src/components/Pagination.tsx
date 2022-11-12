@@ -8,7 +8,7 @@ import { ProductsContext } from '../provider/ProductsProvider';
 const Pagination = () => {
   //client state
   const {
-    pageArray,
+    currentVisiblePageArray,
     setPageLength,
     currentPage,
     isReady,
@@ -39,7 +39,7 @@ const Pagination = () => {
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {pageArray.map((page) => (
+        {currentVisiblePageArray.map((page) => (
           <Page
             key={page}
             selected={page === Number(currentPage)}
