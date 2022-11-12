@@ -6,6 +6,7 @@ import products from '../api/data/products.json';
 import ProductList from '../components/ProductList';
 import useObserver from '../hooks/useObserver';
 import useGetInfinityProducts from '../hooks/queries/useGetInfinityProducts';
+import useScrollMemory from '../hooks/useScrollMemory';
 
 const InfiniteScrollPage: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +20,7 @@ const InfiniteScrollPage: NextPage = () => {
   }, [fetchNextPage]);
 
   const { handleElementRef } = useObserver({ hasNext: !!hasNextPage, callback: handleIntersect });
+  useScrollMemory();
 
   return (
     <>
