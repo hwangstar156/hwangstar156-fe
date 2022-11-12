@@ -10,7 +10,7 @@ interface useGetProductsProps {
   onError?: (error: AxiosError<{ message: string }>) => void;
 }
 
-const useGetProducts = (page: string, isReady: boolean, config?: useGetProductsProps) => {
+const useGetProducts = (page: number, isReady: boolean, config?: useGetProductsProps) => {
   const { data, refetch } = useQuery<GetProductsResponse, AxiosError<{ message: string }>>(
     ['products', page],
     () => getProducts({ page }),
