@@ -24,7 +24,7 @@ export interface GetDetailProductResponse {
   };
 }
 
-export const getProducts = async ({ page, size }: GetProductsRequestProps) => {
+export const getProducts = async ({ page = 1, size = 10 }: GetProductsRequestProps) => {
   const data = await axios.get<GetProductsResponse>(
     `${HOME_URL}/products?page=${page}&size=${size}`
   );

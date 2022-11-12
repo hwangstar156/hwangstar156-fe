@@ -3,10 +3,9 @@ import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
 import { InfinityProductsContext } from '../provider/InfinityProductsProvider';
+import { Product } from '../types/product';
 
-const ProductList = () => {
-  const { products } = useContext(InfinityProductsContext);
-
+const ProductList = ({ products }: { products: Product[] }) => {
   return (
     <Container>
       {products.map((product) => (
