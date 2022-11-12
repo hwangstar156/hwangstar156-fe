@@ -3,7 +3,8 @@ import { HOME_URL } from '../constants/url';
 import { Product } from '../types/product';
 
 export interface GetProductsRequestProps {
-  page: string;
+  page: number;
+  size?: number;
 }
 
 export interface GetProductsResponse {
@@ -23,10 +24,18 @@ export interface GetDetailProductResponse {
   };
 }
 
-export const getProducts = async ({ page }: GetProductsRequestProps) => {
-  const data = await axios.get<GetProductsResponse>(`${HOME_URL}/products?page=${page}&size=10`);
+export const getProducts = async ({ page, size }: GetProductsRequestProps) => {
+  const data = await axios.get<GetProductsResponse>(
+    `${HOME_URL}/products?page=${page}&size=${size}`
+  );
 
   return data.data;
+};
+
+export const getInfinityProducts = async ({ page }: GetProductsRequestProps) => {
+  const data = await axios.get<GetProductsResponse>(`${HOME_URL}/products?page=${page}&size=16`);
+
+  return { data: data.data, nextPage: page + 1 };
 };
 
 export const getDetailProduct = async ({ productId }: GetDetailProductRequestProps) => {
