@@ -9,7 +9,13 @@ import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
