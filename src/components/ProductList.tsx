@@ -1,19 +1,20 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 
-import { Product } from '../types/product';
 import ProductItem from './ProductItem';
+import { InfinityProductsContext } from '../provider/InfinityProductsProvider';
 
-type ProductListProps = {
-  products: Product[];
+const ProductList = () => {
+  const { products } = useContext(InfinityProductsContext);
+
+  return (
+    <Container>
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </Container>
+  );
 };
-
-const ProductList = ({ products }: ProductListProps) => (
-  <Container>
-    {products.map((product) => (
-      <ProductItem key={product.id} product={product} />
-    ))}
-  </Container>
-);
 
 export default ProductList;
 
