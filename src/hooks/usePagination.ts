@@ -30,7 +30,7 @@ const usePagination = () => {
   return {
     pageArray,
     setPageLength,
-    currentPage: page,
+    currentPage: Number(page),
     isReady: router.isReady,
     handleClickPageButton,
     handleClickePageMoveArrowButton,
