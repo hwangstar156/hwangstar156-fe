@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import useLazyLoadingObserver from '../hooks/useLazyLoadingObserver';
 
 import { Product } from '../types/product';
 
@@ -9,6 +10,7 @@ type ProductItemProps = {
 
 const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemProps) => {
   const router = useRouter();
+  const { imageRef } = useLazyLoadingObserver();
 
   const handleClickProductItem = () => {
     router.push(`products/${id}`);
@@ -16,7 +18,7 @@ const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemPro
 
   return (
     <Container onClick={handleClickProductItem}>
-      <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
+      <Thumbnail src={'/defaultThumbnail.jpg'} data-src={thumbnail} ref={imageRef} />
       <Name>{name}</Name>
       <Price>{price.toLocaleString()}원</Price>
     </Container>
