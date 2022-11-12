@@ -10,13 +10,13 @@ interface useGetDetailProductProps {
 }
 
 const useGetDetailProduct = (productId: string, config?: useGetDetailProductProps) => {
-  const { data } = useQuery<GetDetailProductResponse, AxiosError<{ message: string }>>(
+  const { data, isError } = useQuery<GetDetailProductResponse, AxiosError<{ message: string }>>(
     ['product-detail', productId],
     () => getDetailProduct({ productId }),
     config
   );
 
-  return { product: data?.data.product };
+  return { product: data?.data.product, isError };
 };
 
 export default useGetDetailProduct;

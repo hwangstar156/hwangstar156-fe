@@ -4,6 +4,7 @@ import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import usePagination from '../hooks/usePagination';
 import useGetProducts from '../hooks/queries/useGetProducts';
 import { ProductsContext } from '../provider/ProductsProvider';
+import ErrorMessage from './common/ErrorMessage/ErrorMessage';
 
 const Pagination = () => {
   //client state
@@ -19,7 +20,7 @@ const Pagination = () => {
   } = usePagination();
   const { setProducts } = useContext(ProductsContext);
   //server state
-  useGetProducts(currentPage, isReady, {
+  const { isError } = useGetProducts(currentPage, isReady, {
     onSuccess(data) {
       const { totalCount, products } = data.data;
       setPageLength(Math.ceil(totalCount / 10));
@@ -27,11 +28,9 @@ const Pagination = () => {
     },
   });
 
-  useEffect(() => {
-    if (isReady && currentPage === undefined) {
-      throw new Error('찾을 수 없는 페이지입니다.');
-    }
-  }, [currentPage, isReady]);
+  if (isError) {
+    return <ErrorMessage>존재하지 않는 페이지입니다.</ErrorMessage>;
+  }
 
   return (
     <Container>

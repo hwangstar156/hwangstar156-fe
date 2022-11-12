@@ -4,11 +4,16 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useGetDetailProduct from '../../hooks/queries/useGetDetailProduct';
+import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 
 const ProductDetailPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query as { id: string };
-  const { product } = useGetDetailProduct(id);
+  const { product, isError } = useGetDetailProduct(id);
+
+  if (isError) {
+    return <ErrorMessage>존재하지 않는 상품입니다.</ErrorMessage>;
+  }
 
   return (
     <>
