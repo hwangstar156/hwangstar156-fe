@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { NextPage } from 'next';
 
 import ProductList from '../components/ProductList';
 import Pagination from '../components/Pagination';
-import { NextPage } from 'next';
 import { ProductsContext } from '../provider/ProductsProvider';
 
 const PaginationPage: NextPage = () => {
@@ -11,7 +11,7 @@ const PaginationPage: NextPage = () => {
 
   return (
     <Container>
-      {products && <ProductList products={products.slice(0, 10)} />}
+      {products && <ProductList products={products} />}
       <Pagination />
     </Container>
   );

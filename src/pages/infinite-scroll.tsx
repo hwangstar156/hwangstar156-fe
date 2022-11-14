@@ -2,15 +2,15 @@ import type { NextPage } from 'next';
 import React, { useCallback, useContext, useState } from 'react';
 import styled from 'styled-components';
 
-import products from '../api/data/products.json';
 import ProductList from '../components/ProductList';
 import useObserver from '../hooks/useObserver';
 import useGetInfinityProducts from '../hooks/queries/useGetInfinityProducts';
 import useScrollMemory from '../hooks/useScrollMemory';
 import { InfinityProductsContext } from '../provider/InfinityProductsProvider';
+import { FIRST_PAGE } from '../constants/size';
 
 const InfiniteScrollPage: NextPage = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(FIRST_PAGE);
   const { products } = useContext(InfinityProductsContext);
 
   const { fetchNextPage, hasNextPage } = useGetInfinityProducts({
@@ -21,7 +21,6 @@ const InfiniteScrollPage: NextPage = () => {
   const handleIntersect = useCallback(async () => {
     await fetchNextPage();
   }, [fetchNextPage]);
-
   const { handleElementRef } = useObserver({ hasNext: !!hasNextPage, callback: handleIntersect });
   useScrollMemory();
 

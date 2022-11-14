@@ -1,10 +1,8 @@
-import { GetProductsResponse } from './../../api/products';
 import { useQuery } from 'react-query';
-import { Axios, AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 
-import { getProducts } from '../../api/products';
-
+import { getProducts, GetProductsResponse } from '../../api/products';
 interface useGetProductsProps {
   onSuccess?: (data: GetProductsResponse) => void;
   onError?: (error: AxiosError<{ message: string }>) => void;

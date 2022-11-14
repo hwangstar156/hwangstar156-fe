@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
 import { getUser, UserResponse } from '../../api/auth';
-import { useEffect, useState } from 'react';
 
 interface useGetUserProps {
   onSuccess?: (data: UserResponse) => void;

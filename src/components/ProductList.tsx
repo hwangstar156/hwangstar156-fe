@@ -1,8 +1,6 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
-import { InfinityProductsContext } from '../provider/InfinityProductsProvider';
 import { Product } from '../types/product';
 
 const ProductList = ({ products }: { products: Product[] }) => {

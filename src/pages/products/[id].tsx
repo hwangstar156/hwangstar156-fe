@@ -1,8 +1,7 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+
 import useGetDetailProduct from '../../hooks/queries/useGetDetailProduct';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 

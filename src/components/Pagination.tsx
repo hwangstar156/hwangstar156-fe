@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+
 import usePagination from '../hooks/usePagination';
 import useGetProducts from '../hooks/queries/useGetProducts';
 import { ProductsContext } from '../provider/ProductsProvider';
 import ErrorMessage from './common/ErrorMessage/ErrorMessage';
+import { PAGINATION_LOAD_SIZE } from '../constants/size';
 
 const Pagination = () => {
   //client state
@@ -23,7 +25,7 @@ const Pagination = () => {
   const { isError } = useGetProducts(currentPage, isReady, {
     onSuccess(data) {
       const { totalCount, products } = data.data;
-      setPageLength(Math.ceil(totalCount / 10));
+      setPageLength(Math.ceil(totalCount / PAGINATION_LOAD_SIZE));
       setProducts(products);
     },
   });

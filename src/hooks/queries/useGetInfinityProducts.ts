@@ -1,6 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
+
 import { getInfinityProducts } from '../../api/products';
+import { INFINITY_SCROLL_LOAD_SIZE, FIRST_PAGE } from '../../constants/size';
 import { InfinityProductsContext } from '../../provider/InfinityProductsProvider';
 
 const useGetInfinityProducts = ({
@@ -16,12 +18,12 @@ const useGetInfinityProducts = ({
     ({ pageParam = page }) => getInfinityProducts({ page: pageParam }),
     {
       getNextPageParam: ({ data, nextPage }) => {
-        const totalPageLength = Math.ceil(data.data.totalCount / 16);
+        const totalPageLength = Math.ceil(data.data.totalCount / INFINITY_SCROLL_LOAD_SIZE);
         page !== nextPage && setCurrentPage(nextPage);
         return page > totalPageLength ? undefined : nextPage;
       },
       refetchOnWindowFocus: false,
-      enabled: page === 1,
+      enabled: page === FIRST_PAGE,
     }
   );
 
