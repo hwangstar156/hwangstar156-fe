@@ -5,13 +5,12 @@ import { getInfinityProducts } from '../../api/products';
 import { INFINITY_SCROLL_LOAD_SIZE, FIRST_PAGE } from '../../constants/size';
 import { InfinityProductsContext } from '../../provider/InfinityProductsProvider';
 
-const useGetInfinityProducts = ({
-  page,
-  setCurrentPage,
-}: {
+interface UseGetInfinityProducts {
   page: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-}) => {
+}
+
+const useGetInfinityProducts = ({ page, setCurrentPage }: UseGetInfinityProducts) => {
   const { setProducts } = useContext(InfinityProductsContext);
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ['infinity-products'],

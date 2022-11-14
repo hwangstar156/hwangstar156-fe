@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 
 import useLogin from '../../hooks/useLogin';
 
-const withNoAuth = (Component: NextPage | React.FC) => {
+type WithNoAuthProps = NextPage | React.FC;
+
+const withNoAuth = (Component: WithNoAuthProps) => {
   const Auth = () => {
     const { isLogin } = useLogin();
     const router = useRouter();

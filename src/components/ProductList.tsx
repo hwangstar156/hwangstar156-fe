@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import { Product } from '../types/product';
 
-const ProductList = ({ products }: { products: Product[] }) => {
+interface ProductList {
+  products: Product[];
+}
+
+const ProductList = ({ products }: ProductList) => {
   return (
     <Container>
       {products.map((product) => (

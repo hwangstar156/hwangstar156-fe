@@ -11,7 +11,7 @@ export const InfinityProductsContext = createContext<InfinityProductsProviderVal
   setProducts: () => void 0,
 });
 
-const InfinityProductsProvider = ({ children }: { children: React.ReactNode }) => {
+const InfinityProductsProvider = ({ children }: WithChildren) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   return (

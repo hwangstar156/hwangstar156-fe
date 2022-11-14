@@ -3,7 +3,7 @@ import LoginProvider from './LoginProvider';
 import ProductsProvider from './ProductsProvider';
 import UserNameProvider from './UserNameProvider';
 
-const GlobalProvier = ({ children }: { children: React.ReactNode }) => {
+const GlobalProvier = ({ children }: WithChildren) => {
   return (
     <LoginProvider>
       <UserNameProvider>

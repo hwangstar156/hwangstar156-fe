@@ -10,7 +10,7 @@ export const UserNameContext = createContext<UserNameProviderValueType>({
   setUserName: () => void 0,
 });
 
-const UserNameProvider = ({ children }: { children: React.ReactNode }) => {
+const UserNameProvider = ({ children }: WithChildren) => {
   const [userName, setUserName] = useState('');
 
   return (

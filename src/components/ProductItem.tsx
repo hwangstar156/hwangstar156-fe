@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import useLazyLoadingObserver from '../hooks/useLazyLoadingObserver';
 import { Product } from '../types/product';
 
-type ProductItemProps = {
+interface ProductItemProps {
   product: Product;
-};
+}
 
 const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemProps) => {
   const router = useRouter();

@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const useObserver = ({ hasNext, callback }: { hasNext: boolean; callback: () => void }) => {
+interface UseObserverProps {
+  hasNext: boolean;
+  callback: () => void;
+}
+
+const useObserver = ({ hasNext, callback }: UseObserverProps) => {
   const [elementRef, setElementRef] = useState<null | HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver>();
 

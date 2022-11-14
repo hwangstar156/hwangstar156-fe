@@ -10,7 +10,7 @@ export const LoginContext = createContext<LoginProviderValueType>({
   setIsLogin: () => void 0,
 });
 
-const LoginProvider = ({ children }: { children: React.ReactNode }) => {
+const LoginProvider = ({ children }: WithChildren) => {
   const [isLogin, setIsLogin] = useState(false);
 
   return (

@@ -11,7 +11,7 @@ export const ProductsContext = createContext<ProductsProviderValueType>({
   setProducts: () => void 0,
 });
 
-const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
+const ProductsProvider = ({ children }: WithChildren) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   return (
