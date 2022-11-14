@@ -2,15 +2,16 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
+import { ROUTER_URL } from '../constants/url';
 
 const HomePage: NextPage = () => {
   return (
     <>
       <Container>
-        <Link href='/pagination?page=1'>
+        <Link href={`${ROUTER_URL.PAGINATION}?page=1`}>
           <StyledLink>pagination</StyledLink>
         </Link>
-        <Link href='/infinite-scroll'>
+        <Link href={`${ROUTER_URL.INFINITY_SCROLL}`}>
           <StyledLink>infinite scroll</StyledLink>
         </Link>
       </Container>

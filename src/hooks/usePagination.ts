@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { VISIBLE_PAGE_LENGTH } from '../constants/size';
+import { ROUTER_URL } from '../constants/url';
 
 const usePagination = () => {
   const router = useRouter();
@@ -8,16 +10,17 @@ const usePagination = () => {
   const { page } = router.query as { page: string };
 
   const isFirstPageIndex = pageIndex === 0;
-  const isLastPageIndex = pageIndex === Math.floor(pageLength / 5);
+  const isLastPageIndex = pageIndex === Math.floor(pageLength / VISIBLE_PAGE_LENGTH);
 
-  const pageArray = useMemo(
-    () => new Array(pageLength).fill(0).map((_, idx) => idx + 1),
-    [pageLength]
+  const pageArray = new Array(pageLength).fill(0).map((_, idx) => idx + 1);
+
+  const currentVisiblePageArray = pageArray.slice(
+    VISIBLE_PAGE_LENGTH * pageIndex,
+    VISIBLE_PAGE_LENGTH * (pageIndex + 1)
   );
-  const currentVisiblePageArray = pageArray.slice(5 * pageIndex, 5 * (pageIndex + 1));
 
   const handleClickPageButton = (page: number) => {
-    router.push({ pathname: '/pagination', query: { page } });
+    router.push({ pathname: ROUTER_URL.PAGINATION, query: { page } });
   };
 
   const handleClickePageMoveArrowButton = (isNext: boolean) => {
@@ -26,7 +29,10 @@ const usePagination = () => {
 
   useEffect(() => {
     if (pageArray.includes(Number(page))) {
-      router.push({ pathname: '/pagination', query: { page: 5 * pageIndex + 1 } });
+      router.push({
+        pathname: ROUTER_URL.PAGINATION,
+        query: { page: VISIBLE_PAGE_LENGTH * pageIndex + 1 },
+      });
     }
   }, [pageIndex]);
 
