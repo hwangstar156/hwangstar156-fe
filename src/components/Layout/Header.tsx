@@ -15,6 +15,9 @@ const Header = () => {
       const { NAME } = data.data.user;
       setUserName(NAME);
     },
+    onError(error) {
+      alert(error.response?.data);
+    },
   });
 
   return (
