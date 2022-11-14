@@ -11,7 +11,9 @@ const ProductList = ({ products }: ProductList) => {
   return (
     <Container>
       {products.map((product) => (
-        <ProductItem key={product.id} product={product} />
+        <li key={product.id}>
+          <ProductItem product={product} />
+        </li>
       ))}
     </Container>
   );
@@ -19,7 +21,7 @@ const ProductList = ({ products }: ProductList) => {
 
 export default ProductList;
 
-const Container = styled.div`
+const Container = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 400px;

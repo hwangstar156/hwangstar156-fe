@@ -41,14 +41,15 @@ const Pagination = () => {
       </Button>
       <PageWrapper>
         {currentVisiblePageArray.map((page) => (
-          <Page
-            key={page}
-            selected={page === Number(currentPage)}
-            disabled={page === Number(currentPage)}
-            onClick={() => handleClickPageButton(page)}
-          >
-            {page}
-          </Page>
+          <li key={page}>
+            <Page
+              selected={page === Number(currentPage)}
+              disabled={page === Number(currentPage)}
+              onClick={() => handleClickPageButton(page)}
+            >
+              {page}
+            </Page>
+          </li>
         ))}
       </PageWrapper>
       <Button disabled={isLastPageIndex} onClick={() => handleClickePageMoveArrowButton(true)}>
@@ -79,7 +80,7 @@ const Button = styled.button`
   }
 `;
 
-const PageWrapper = styled.div`
+const PageWrapper = styled.ul`
   display: flex;
   margin: 0 16px;
 `;
