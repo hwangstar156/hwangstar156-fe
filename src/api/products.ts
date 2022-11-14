@@ -7,15 +7,14 @@ export interface GetProductsRequestProps {
   size?: number;
 }
 
+export interface GetDetailProductRequestProps {
+  productId: string;
+}
 export interface GetProductsResponse {
   data: {
     products: Product[];
     totalCount: number;
   };
-}
-
-export interface GetDetailProductRequestProps {
-  productId: string;
 }
 
 export interface GetDetailProductResponse {

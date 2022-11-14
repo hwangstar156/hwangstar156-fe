@@ -3,13 +3,9 @@ import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
 import { getUser, UserResponse } from '../../api/auth';
+import { UseQueryConfigProps } from '../../types/query';
 
-interface useGetUserProps {
-  onSuccess?: (data: UserResponse) => void;
-  onError?: (error: AxiosError<{ message: string }>) => void;
-}
-
-const useGetUser = (config?: useGetUserProps) => {
+const useGetUser = (config?: UseQueryConfigProps<UserResponse>) => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useQuery<UserResponse, AxiosError<{ message: string }>>(

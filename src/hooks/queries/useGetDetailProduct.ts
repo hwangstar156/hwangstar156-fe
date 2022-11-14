@@ -3,13 +3,12 @@ import { AxiosError } from 'axios';
 
 import { getDetailProduct } from './../../api/products';
 import { GetDetailProductResponse } from '../../api/products';
+import { UseQueryConfigProps } from '../../types/query';
 
-interface useGetDetailProductProps {
-  onSuccess?: (data: GetDetailProductResponse) => void;
-  onError?: (error: AxiosError<{ message: string }>) => void;
-}
-
-const useGetDetailProduct = (productId: string, config?: useGetDetailProductProps) => {
+const useGetDetailProduct = (
+  productId: string,
+  config?: UseQueryConfigProps<GetDetailProductResponse>
+) => {
   const { data, isError } = useQuery<GetDetailProductResponse, AxiosError<{ message: string }>>(
     ['product-detail', productId],
     () => getDetailProduct({ productId }),

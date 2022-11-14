@@ -2,13 +2,9 @@ import { useMutation } from 'react-query';
 import { AxiosResponse, AxiosError } from 'axios';
 
 import { LoginSuccessResponse, postLogin, PostLoginRequestProps } from '../../api/auth';
+import { UseMutationConfigProps } from '../../types/query';
 
-interface usePostLoginProps {
-  onSuccess?: (data: AxiosResponse<LoginSuccessResponse>) => void;
-  onError?: (error: AxiosError<{ message: string }>) => void;
-}
-
-const usePostLogin = (config?: usePostLoginProps) => {
+const usePostLogin = (config?: UseMutationConfigProps<LoginSuccessResponse>) => {
   const { mutate } = useMutation<
     AxiosResponse<LoginSuccessResponse>,
     AxiosError<{ message: string }>,

@@ -3,12 +3,13 @@ import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 
 import { getProducts, GetProductsResponse } from '../../api/products';
-interface useGetProductsProps {
-  onSuccess?: (data: GetProductsResponse) => void;
-  onError?: (error: AxiosError<{ message: string }>) => void;
-}
+import { UseQueryConfigProps } from '../../types/query';
 
-const useGetProducts = (page: number, isReady: boolean, config?: useGetProductsProps) => {
+const useGetProducts = (
+  page: number,
+  isReady: boolean,
+  config?: UseQueryConfigProps<GetProductsResponse>
+) => {
   const { data, refetch, isError } = useQuery<GetProductsResponse, AxiosError<{ message: string }>>(
     ['products', page],
     () => getProducts({ page }),
