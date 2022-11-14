@@ -1,10 +1,21 @@
 import type { AppProps } from 'next/app';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import styled from 'styled-components';
 
 import setupMSW from '../api/setup';
+import Header from '../components/Layout/Header';
+import GlobalProvier from '../provider/GlobalProvider';
 import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +23,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <Background />
       <Content>
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <GlobalProvier>
+            <Header />
+            <Component {...pageProps} />
+          </GlobalProvier>
+        </QueryClientProvider>
       </Content>
     </>
   );

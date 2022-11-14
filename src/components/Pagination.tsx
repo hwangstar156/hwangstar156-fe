@@ -1,21 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
+import usePagination from '../hooks/usePagination';
+import useGetProducts from '../hooks/queries/useGetProducts';
+import { ProductsContext } from '../provider/ProductsProvider';
+import ErrorMessage from './common/ErrorMessage/ErrorMessage';
+import { PAGINATION_LOAD_SIZE } from '../constants/size';
+
 const Pagination = () => {
+  //client state
+  const {
+    currentVisiblePageArray,
+    setPageLength,
+    currentPage,
+    isReady,
+    handleClickPageButton,
+    isFirstPageIndex,
+    isLastPageIndex,
+    handleClickePageMoveArrowButton,
+  } = usePagination();
+  const { setProducts } = useContext(ProductsContext);
+  //server state
+  const { isError } = useGetProducts(currentPage, isReady, {
+    onSuccess(data) {
+      const { totalCount, products } = data.data;
+      setPageLength(Math.ceil(totalCount / PAGINATION_LOAD_SIZE));
+      setProducts(products);
+    },
+  });
+
+  if (isError) {
+    return <ErrorMessage>존재하지 않는 페이지입니다.</ErrorMessage>;
+  }
+
   return (
     <Container>
-      <Button disabled>
+      <Button disabled={isFirstPageIndex} onClick={() => handleClickePageMoveArrowButton(false)}>
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
-            {page}
-          </Page>
+        {currentVisiblePageArray.map((page) => (
+          <li key={page}>
+            <Page
+              selected={page === Number(currentPage)}
+              disabled={page === Number(currentPage)}
+              onClick={() => handleClickPageButton(page)}
+            >
+              {page}
+            </Page>
+          </li>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+      <Button disabled={isLastPageIndex} onClick={() => handleClickePageMoveArrowButton(true)}>
         <VscChevronRight />
       </Button>
     </Container>
@@ -35,13 +72,15 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
+
   &:disabled {
     color: #e2e2ea;
     cursor: default;
   }
 `;
 
-const PageWrapper = styled.div`
+const PageWrapper = styled.ul`
   display: flex;
   margin: 0 16px;
 `;
@@ -55,6 +94,7 @@ const Page = styled.button<PageType>`
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
   font-size: 20px;
+  cursor: pointer;
 
   & + & {
     margin-left: 4px;

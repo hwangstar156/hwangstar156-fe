@@ -5,6 +5,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-}
+  experimental: {
+    esmExternals: false,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

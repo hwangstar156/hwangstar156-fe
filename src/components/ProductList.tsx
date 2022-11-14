@@ -1,23 +1,27 @@
 import styled from 'styled-components';
 
-import { Product } from '../types/product';
 import ProductItem from './ProductItem';
+import { Product } from '../types/product';
 
-type ProductListProps = {
+interface ProductList {
   products: Product[];
-};
+}
 
-const ProductList = ({ products }: ProductListProps) => (
-  <Container>
-    {products.map((product) => (
-      <ProductItem key={product.id} product={product} />
-    ))}
-  </Container>
-);
+const ProductList = ({ products }: ProductList) => {
+  return (
+    <Container>
+      {products.map((product) => (
+        <li key={product.id}>
+          <ProductItem product={product} />
+        </li>
+      ))}
+    </Container>
+  );
+};
 
 export default ProductList;
 
-const Container = styled.div`
+const Container = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 400px;

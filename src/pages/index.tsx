@@ -2,23 +2,16 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
+import { ROUTER_URL } from '../constants/url';
 
 const HomePage: NextPage = () => {
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Container>
-        <Link href='/pagination?page=1'>
+        <Link href={`${ROUTER_URL.PAGINATION}?page=1`}>
           <StyledLink>pagination</StyledLink>
         </Link>
-        <Link href='/infinite-scroll'>
+        <Link href={`${ROUTER_URL.INFINITY_SCROLL}`}>
           <StyledLink>infinite scroll</StyledLink>
         </Link>
       </Container>
@@ -27,17 +20,6 @@ const HomePage: NextPage = () => {
 };
 
 export default HomePage;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
 
 const Container = styled.div`
   display: flex;
